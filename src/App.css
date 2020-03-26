@@ -1,6 +1,9 @@
 .App {
   text-align: center;
 }
+strong {
+  color: red;
+}
 
 .App-logo {
   height: 40vmin;
@@ -35,4 +38,16 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.samples-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+.samples-container > .sample-list:not(:last-child) {
+  margin-right: 10px;
+}
+.sample-list {
+  display: flex;
+  flex-direction: column;
 }
