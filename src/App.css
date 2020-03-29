@@ -21,8 +21,8 @@ strong {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
 }
@@ -40,9 +40,12 @@ strong {
   }
 }
 
+/* LIST STYLES */
+
 .samples-container {
   display: flex;
   justify-content: space-evenly;
+  margin-bottom: 50px;
 }
 .samples-container > .sample-list:not(:last-child) {
   margin-right: 10px;
@@ -50,4 +53,164 @@ strong {
 .sample-list {
   display: flex;
   flex-direction: column;
+}
+
+/* INPUT STYLES: V1
+
+.absolute-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 10px);
+  max-width: 400px;
+  padding: 40px;
+  background: rgba(0, 0, 0, 0.8);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+}
+.absolute-box h2 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+}
+.absolute-box .inputBox {
+  position: relative;
+}
+.absolute-box .inputBox input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+  letter-spacing: 1px;
+}
+.absolute-box .inputBox label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  pointer-events: none;
+  transition: 0.5s;
+}
+.absolute-box .inputBox input:focus ~ label,
+.absolute-box .inputBox input:valid ~ label {
+  top: -18px;
+  left: 0;
+  color: #03a9f4;
+  font-size: 12px;
+}
+.absolute-box .inputBox input[type="submit"] {
+  background: transparent;
+  font-family: "Montserrat";
+  border: none;
+  outlie: none;
+  color: #fff;
+  background: #03a9f4;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+*/
+
+/* INPUT STYLES: V2 */
+
+.simple-box {
+  margin: 50px 0;
+  width: calc(100% - 10px); /* for small devices */
+  max-width: 400px;
+  padding: 40px;
+  background: rgba(0, 0, 0, 0.8);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+}
+.simple-box h2 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+}
+.simple-box .inputBox {
+  position: relative;
+}
+.simple-box .inputBox input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+  letter-spacing: 1px;
+}
+.simple-box .inputBox label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  pointer-events: none;
+  transition: 0.5s;
+}
+.simple-box .inputBox input:focus ~ label
+/* .simple-box .inputBox input:valid ~ label */ {
+  top: -18px;
+  left: 0;
+  color: #03a9f4;
+  font-size: 12px;
+}
+.simple-box .inputBox input[type="submit"] {
+  background: transparent;
+  /* font-family: "Montserrat"; */
+  border: none;
+  outline: none;
+  color: #fff;
+  background: #03a9f4;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.item-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.item-wrapper > div:not(:last-child) {
+  margin-right: 10px;
+}
+.remove-btn {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  transition: all 0.3s linear;
+}
+.remove-btn:hover {
+  background-color: #fff;
+}
+
+.likeTitle {
+  margin-bottom: 20px;
+}
+.muted {
+  opacity: 0.4;
 }
