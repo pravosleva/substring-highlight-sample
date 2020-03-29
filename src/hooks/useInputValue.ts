@@ -8,7 +8,7 @@ export const useInputValue = (defaultValue = "") => {
     bind: {
       value,
       onChange: (e: any): void => {
-        setValue(e.target.value.trim());
+        setValue(e.target.value);
         setValueRegExp(new RegExp(`^(.*?)(${e.target.value})(.*)$`, "i"));
       }
     },

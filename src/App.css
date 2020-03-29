@@ -175,7 +175,7 @@ strong {
 }
 .simple-box .inputBox input[type="submit"] {
   background: transparent;
-  /* font-family: "Montserrat"; */
+  font-family: "Montserrat";
   border: none;
   outline: none;
   color: #fff;

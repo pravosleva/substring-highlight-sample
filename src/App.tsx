@@ -36,17 +36,8 @@ function App() {
       input.clear();
     }
   };
-  const handleKeyPress = e => {
-    const normalizedValue = input.getNormalizedValue();
-
-    if (e.key === "Enter") {
-      if (list.includes(normalizedValue)) {
-        alert("Такой город есть в списке");
-        return;
-      }
-      setList([...list, normalizedValue]);
-      input.clear();
-    }
+  const handleKeyPress = (e: any) => {
+    if (e.key === "Enter") handleAdd();
   };
   // Обработчики, передаваемые вниз, начинаются с "on"
   const onRemove = (name: string): void => {
