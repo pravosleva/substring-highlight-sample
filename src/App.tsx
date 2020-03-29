@@ -64,8 +64,9 @@ function App() {
                 value={input.bind.value}
                 onChange={input.bind.onChange}
                 onKeyPress={handleKeyPress}
-                id="cityName"
                 name="cityName"
+                required
+                type="text"
               />
               <label htmlFor="cityName">City name</label>
             </div>

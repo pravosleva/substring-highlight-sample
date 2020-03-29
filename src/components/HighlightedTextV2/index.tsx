@@ -1,14 +1,9 @@
 import React from "react";
+import { HighlighedTextModel } from "./HighlightedTextModel";
 
 // GOOD EXAMPLE
 
-interface Props {
-  inputValueRegExp: RegExp;
-  comparedValue: string;
-  // onRemove: any;
-}
-
-export const HighlightedTextV2: React.FC<Props> = props => {
+export const HighlightedTextV2: React.FC<HighlighedTextModel.Props> = props => {
   const { inputValueRegExp, comparedValue } = props;
   const match = comparedValue.match(inputValueRegExp);
 

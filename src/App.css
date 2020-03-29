@@ -153,6 +153,7 @@ strong {
   outline: none;
   background: transparent;
   letter-spacing: 1px;
+  outline: none;
 }
 .simple-box .inputBox label {
   position: absolute;
@@ -164,8 +165,9 @@ strong {
   pointer-events: none;
   transition: 0.5s;
 }
-.simple-box .inputBox input:focus ~ label
-/* .simple-box .inputBox input:valid ~ label */ {
+.simple-box .inputBox input:focus ~ label,
+.simple-box .inputBox input:valid ~ label
+{
   top: -18px;
   left: 0;
   color: #03a9f4;
@@ -187,6 +189,8 @@ strong {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  line-height: 1.3em;
 }
 .item-wrapper > div:not(:last-child) {
   margin-right: 10px;
