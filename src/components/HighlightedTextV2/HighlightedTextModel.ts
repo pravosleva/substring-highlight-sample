@@ -1,6 +1,6 @@
 export namespace HighlighedTextModel {
-    export interface Props {
-        inputValueRegExp: RegExp;
-        comparedValue: string;
-      }
+  export interface Props {
+    inputValueRegExp: RegExp
+    comparedValue: string
+  }
 }

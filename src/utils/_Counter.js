@@ -7,16 +7,16 @@
 // }
 
 export class Counter {
-    constructor (defaultState = 0, step = 1, timestamp = new Date().getTime()) {
-        this.state = defaultState;
-        this.timestamp = timestamp;
-        this.step = step;
-    }
-    getValue (name) {
-        return this[name];
-    }
-    inc() {
-        this.state += this.step;
-        this.timestamp = new Date().getTime();
-    }
+  constructor(defaultState = 0, step = 1, timestamp = new Date().getTime()) {
+    this.state = defaultState
+    this.timestamp = timestamp
+    this.step = step
+  }
+  getValue(name) {
+    return this[name]
+  }
+  inc() {
+    this.state += this.step
+    this.timestamp = new Date().getTime()
+  }
 }

@@ -1,22 +1,29 @@
-import { useState } from "react";
+import { useState } from 'react'
 
-export const useInputValue = (defaultValue = "") => {
-  const [value, setValue] = useState(defaultValue);
-  const [valueRegExp, setValueRegExp] = useState(new RegExp(null));
+const upperCaseFirstChar = (str: string): string => {
+  if (!str) return str
+
+  return String(str[0].toUpperCase() + str.slice(1))
+}
+export const useInputValue = (defaultValue = '') => {
+  const [value, setValue] = useState(defaultValue)
+  const [valueRegExp, setValueRegExp] = useState(new RegExp(null))
 
   return {
     bind: {
       value,
       onChange: (e: any): void => {
-        setValue(e.target.value);
-        setValueRegExp(new RegExp(`^(.*?)(${e.target.value})(.*)$`, "i"));
-      }
+        setValue(e.target.value)
+        setValueRegExp(new RegExp(`^(.*?)(${e.target.value})(.*)$`, 'i'))
+      },
     },
     valueRegExp,
     clear: () => {
-      setValue("");
-      setValueRegExp(new RegExp(null));
+      setValue('')
+      setValueRegExp(new RegExp(null))
     },
-    getNormalizedValue: () => value.trim()
-  };
-};
+    getNormalizedValue: () => {
+      return upperCaseFirstChar(value.trim())
+    },
+  }
+}
