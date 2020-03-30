@@ -5,7 +5,8 @@ import { HighlightedTextV2 } from "./components/HighlightedTextV2/index"
 import { ItemWrapper } from "./components/ItemWrapper/index"
 import { useInputValue } from "./hooks/useInputValue"
 import { useSelector, useDispatch } from "react-redux"
-import { addCity, removeCity } from './actions'
+import { addCity, removeCity, showAsyncToast } from './actions'
+import { Toast } from './components/Toaster'
 
 function App() {
   const input = useInputValue("")
@@ -16,8 +17,9 @@ function App() {
 
     if (!!normalizedValue) {
       if (list.includes(normalizedValue)) {
-        alert("Такой город есть в списке")
-        return;
+        // alert("Такой город есть в списке")
+        dispatch(showAsyncToast({ text: 'Такой город есть в списке', delay: 3000, type: 'warning' }))
+        return
       }
       dispatch(addCity(normalizedValue))
       input.clear();
@@ -32,6 +34,7 @@ function App() {
 
   return (
     <div className="App">
+      <Toast />
       <header className="App-header">
         <div className="simple-box">
           <h2>New City</h2>
@@ -48,7 +51,7 @@ function App() {
               <label htmlFor="cityName">City name</label>
             </div>
             <div className="inputBox">
-              <input type="submit" onClick={handleAdd} value="Add to list" />
+              <input className='ripple' type="submit" onClick={handleAdd} value="Add to list" />
             </div>
           </div>
         </div>

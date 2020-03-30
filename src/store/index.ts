@@ -1,12 +1,12 @@
 import { createStore, applyMiddleware, compose } from 'redux'
-// import createSagaMiddleware from 'redux-saga'
+import createSagaMiddleware from 'redux-saga'
 import logger from 'redux-logger'
 
 import { rootReducer } from './reducers'
-// import rootSaga from './sagas'
+import rootSaga from './sagas'
 
 // Create saga middlware:
-// const sagaMiddleware = createSagaMiddleware()
+const sagaMiddleware = createSagaMiddleware()
 
 declare global {
   interface Window {
@@ -20,14 +20,6 @@ const composeEnhancers =
   compose
 
 // Mount it on the store:
-export const store = createStore(
-  rootReducer,
-  composeEnhancers(
-    applyMiddleware(
-      logger
-      // sagaMiddleware,
-    )
-  )
-)
+export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger, sagaMiddleware)))
 // Run the sagas:
-// sagaMiddleware.run(rootSaga);
+sagaMiddleware.run(rootSaga)
