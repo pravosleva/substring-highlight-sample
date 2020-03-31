@@ -1,5 +1,7 @@
 # substring-highlight-sample
 
+![Image of Yaktocat](./_screen/2020-03-31-11-13.gif)
+
 ## Stack
 - React
 - Redux
