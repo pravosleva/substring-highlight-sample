@@ -1,22 +1,16 @@
-import React from "react";
-import { escapeRegExpChars } from "../../utils/escape-regexp-chars";
+import React from "react"
+import { getEscapedRegExpChars } from "../../utils/getEscapedRegExpChars"
+import { upperCaseFirstChar } from "../../utils/upperCaseFirstChar"
 
 // BAD EXAMPLE
-
-const upperCaseFirstChar = (str: string): string => {
-  if (!str) return str;
-
-  return str[0].toUpperCase() + str.slice(1);
-};
 
 export const HighlightedTextV1: React.FC<{
   inputValue: string;
   comparedValue: string;
-  // onRemove: any;
 }> = props => {
-  const { inputValue, comparedValue } = props;
-  const escapedInputValue: string = escapeRegExpChars(inputValue);
-  const matchExp: RegExp = new RegExp(`${escapedInputValue}`, "i");
+  const { inputValue, comparedValue } = props
+  const escapedInputValue: string = getEscapedRegExpChars(inputValue)
+  const matchExp: RegExp = new RegExp(`${escapedInputValue}`, "i")
 
   return (
     <span>
@@ -53,7 +47,3 @@ export const HighlightedTextV1: React.FC<{
     </span>
   );
 };
-
-// const areEqual = (prevProps: any, nextProps: any) => {
-//   return prevProps.inputValue === nextProps.inputValue
-// }

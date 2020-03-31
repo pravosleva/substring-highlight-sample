@@ -7,7 +7,7 @@ export interface ToastModel {
   type: ToastType
   status: string
 }
-export interface ShowAsyncArgs {
+export interface ShowAsyncArgModel {
   text: string
   delay: number
   type: ToastType
@@ -21,7 +21,7 @@ export const REMOVE_TOAST = 'REMOVE_TOAST'
 export const FORCE_HIDE_TOAST = 'FORCE_HIDE_TOAST'
 export const SHOW_TOAST_ASYNC = 'SHOW_TOAST_ASYNC'
 
-export const showAsyncToast = (props: ShowAsyncArgs) => {
+export const showAsyncToast = (props: ShowAsyncArgModel) => {
   const { text, delay, type } = props
 
   return { type: SHOW_TOAST_ASYNC, payload: { text, delay, type } }

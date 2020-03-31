@@ -1,10 +1,8 @@
-import React from "react";
-
-// GOOD EXAMPLE
+import React from "react"
 
 interface Props {
-  cityName: string;
-  onRemove: any;
+  cityName: string
+  onRemove: any
 }
 
 export const ItemWrapper: React.FC<Props> = props => {

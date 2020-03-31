@@ -1,5 +1,5 @@
-export const escapeRegExpChars = string =>
-  string
+export const getEscapedRegExpChars = (string: string): string => {
+  return string
     .replace(/\\/g, '\\\\')
     .replace(/\(/g, '\\(')
     .replace(/\)/g, '\\)')
@@ -13,3 +13,4 @@ export const escapeRegExpChars = string =>
     .replace(/\?/g, '\\?')
     .replace(/\{/g, '\\{')
     .replace(/\}/g, '\\}')
+}

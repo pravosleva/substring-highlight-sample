@@ -47,6 +47,8 @@ export const toaster = (state = initialState, action) => {
 
       return { ...state, items: newItems }
     case REMOVE_TOAST:
+      targetItemIndex = state.items.findIndex(e => e.id === action.payload)
+
       if (targetItemIndex === -1) return state
 
       return { ...state, items: [...state.items].filter(e => e.id !== action.payload) }

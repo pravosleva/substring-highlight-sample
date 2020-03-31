@@ -12,7 +12,7 @@ function App() {
   const input = useInputValue("")
   const list = useSelector(state => state.citylist)
   const dispatch = useDispatch()
-  const handleAdd = () => {
+  const handleAdd = (): void => {
     const normalizedValue = input.getNormalizedValue()
 
     if (!!normalizedValue) {
@@ -24,7 +24,7 @@ function App() {
       input.clear();
     }
   };
-  const handleKeyPress = (e: any) => {
+  const handleKeyPress = (e: any): void => {
     if (e.key === "Enter") handleAdd()
   };
   const handleRemove = (name: string): void => {

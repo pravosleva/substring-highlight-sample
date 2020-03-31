@@ -4,8 +4,8 @@ import { HighlighedTextModel } from "./HighlightedTextModel";
 // GOOD EXAMPLE
 
 export const HighlightedTextV2: React.FC<HighlighedTextModel.Props> = props => {
-  const { inputValueRegExp, comparedValue } = props;
-  const match = comparedValue.match(inputValueRegExp);
+  const { inputValueRegExp, comparedValue } = props
+  const match = comparedValue.match(inputValueRegExp)
 
   return (
     <div>
