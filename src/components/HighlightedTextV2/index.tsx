@@ -1,9 +1,9 @@
-import React from "react";
-import { HighlighedTextModel } from "./HighlightedTextModel";
+import React from 'react'
+import { HighlighedTextModel } from './HighlightedTextModel'
 
 // GOOD EXAMPLE
 
-export const HighlightedTextV2: React.FC<HighlighedTextModel.Props> = props => {
+export const HighlightedTextV2: React.FC<HighlighedTextModel.Props> = (props) => {
   const { inputValueRegExp, comparedValue } = props
   const match = comparedValue.match(inputValueRegExp)
 
@@ -19,5 +19,5 @@ export const HighlightedTextV2: React.FC<HighlighedTextModel.Props> = props => {
         <span>{comparedValue}</span>
       )}
     </div>
-  );
-};
+  )
+}

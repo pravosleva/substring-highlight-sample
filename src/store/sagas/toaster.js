@@ -13,7 +13,7 @@ import {
   FORCE_HIDE_TOAST,
 } from '../../actions'
 
-export const delay = ms => new Promise(res => setTimeout(res, ms))
+export const delay = (ms) => new Promise((res) => setTimeout(res, ms))
 export function* asyncToasterWorker({ payload }) {
   const id = Math.random()
 

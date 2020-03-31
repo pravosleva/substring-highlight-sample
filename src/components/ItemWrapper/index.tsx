@@ -1,12 +1,12 @@
-import React from "react"
+import React from 'react'
 
 interface Props {
   cityName: string
   onRemove: any
 }
 
-export const ItemWrapper: React.FC<Props> = props => {
-  const { onRemove, children, cityName } = props;
+export const ItemWrapper: React.FC<Props> = (props) => {
+  const { onRemove, children, cityName } = props
 
   return (
     <div className="item-wrapper">
@@ -15,5 +15,5 @@ export const ItemWrapper: React.FC<Props> = props => {
         <i className="fas fa-times"></i>
       </button>
     </div>
-  );
-};
+  )
+}

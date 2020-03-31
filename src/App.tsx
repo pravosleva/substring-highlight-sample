@@ -1,16 +1,16 @@
-import React from "react"
-import "./App.css"
-import { HighlightedTextV1 } from "./components/HighlightedTextV1/index"
-import { HighlightedTextV2 } from "./components/HighlightedTextV2/index"
-import { ItemWrapper } from "./components/ItemWrapper/index"
-import { useInputValue } from "./hooks/useInputValue"
-import { useSelector, useDispatch } from "react-redux"
+import React from 'react'
+import './App.css'
+import { HighlightedTextV1 } from './components/HighlightedTextV1/index'
+import { HighlightedTextV2 } from './components/HighlightedTextV2/index'
+import { ItemWrapper } from './components/ItemWrapper/index'
+import { useInputValue } from './hooks/useInputValue'
+import { useSelector, useDispatch } from 'react-redux'
 import { addCity, removeCity, showAsyncToast } from './actions'
 import { Toast } from './components/Toaster'
 
 function App() {
-  const input = useInputValue("")
-  const list = useSelector(state => state.citylist)
+  const input = useInputValue('')
+  const list = useSelector((state) => state.citylist)
   const dispatch = useDispatch()
   const handleAdd = (): void => {
     const normalizedValue = input.getNormalizedValue()
@@ -21,15 +21,15 @@ function App() {
         return
       }
       dispatch(addCity(normalizedValue))
-      input.clear();
+      input.clear()
     }
-  };
+  }
   const handleKeyPress = (e: any): void => {
-    if (e.key === "Enter") handleAdd()
-  };
+    if (e.key === 'Enter') handleAdd()
+  }
   const handleRemove = (name: string): void => {
     dispatch(removeCity(name))
-  };
+  }
 
   return (
     <div className="App">
@@ -50,7 +50,7 @@ function App() {
               <label htmlFor="cityName">City name</label>
             </div>
             <div className="inputBox">
-              <input className='ripple' type="submit" onClick={handleAdd} value="Add to list" />
+              <input className="ripple" type="submit" onClick={handleAdd} value="Add to list" />
             </div>
           </div>
         </div>
@@ -60,10 +60,7 @@ function App() {
             {list.map((name, i) => (
               <div key={name}>
                 <ItemWrapper onRemove={handleRemove} cityName={name}>
-                  <HighlightedTextV1
-                    inputValue={input.bind.value}
-                    comparedValue={name}
-                  />
+                  <HighlightedTextV1 inputValue={input.bind.value} comparedValue={name} />
                 </ItemWrapper>
               </div>
             ))}
@@ -73,10 +70,7 @@ function App() {
             {list.map((name, i) => (
               <div key={name}>
                 <ItemWrapper onRemove={handleRemove} cityName={name}>
-                  <HighlightedTextV2
-                    inputValueRegExp={input.valueRegExp}
-                    comparedValue={name}
-                  />
+                  <HighlightedTextV2 inputValueRegExp={input.valueRegExp} comparedValue={name} />
                 </ItemWrapper>
               </div>
             ))}
@@ -84,7 +78,7 @@ function App() {
         </div>
       </header>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

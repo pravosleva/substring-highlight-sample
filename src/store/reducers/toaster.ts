@@ -23,13 +23,13 @@ export const toaster = (state = initialState, action) => {
         ],
       }
     case SHOW_TOAST_FINISH:
-      targetItemIndex = state.items.findIndex(e => e.id === action.payload)
+      targetItemIndex = state.items.findIndex((e) => e.id === action.payload)
       newItems = [...state.items]
       newItems[targetItemIndex].status = 'show-finished'
 
       return { ...state, items: newItems }
     case HIDE_TOAST_START:
-      targetItemIndex = state.items.findIndex(e => e.id === action.payload)
+      targetItemIndex = state.items.findIndex((e) => e.id === action.payload)
 
       if (targetItemIndex === -1) return state
 
@@ -38,7 +38,7 @@ export const toaster = (state = initialState, action) => {
 
       return { ...state, items: newItems }
     case HIDE_TOAST_FINISH:
-      targetItemIndex = state.items.findIndex(e => e.id === action.payload)
+      targetItemIndex = state.items.findIndex((e) => e.id === action.payload)
 
       if (targetItemIndex === -1) return state
 
@@ -47,11 +47,11 @@ export const toaster = (state = initialState, action) => {
 
       return { ...state, items: newItems }
     case REMOVE_TOAST:
-      targetItemIndex = state.items.findIndex(e => e.id === action.payload)
+      targetItemIndex = state.items.findIndex((e) => e.id === action.payload)
 
       if (targetItemIndex === -1) return state
 
-      return { ...state, items: [...state.items].filter(e => e.id !== action.payload) }
+      return { ...state, items: [...state.items].filter((e) => e.id !== action.payload) }
     default:
       return state
   }

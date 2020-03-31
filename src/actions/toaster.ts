@@ -1,11 +1,12 @@
 export type ToastType = 'default' | 'error' | 'warning' | 'info'
+export type StatusType = 'show-started' | 'show-finished' | 'hide-started' | 'hide-finished'
 
 export interface ToastModel {
   id: number
   text: string
   delay: number
   type: ToastType
-  status: string
+  status: StatusType
 }
 export interface ShowAsyncArgModel {
   text: string
