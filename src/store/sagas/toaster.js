@@ -18,7 +18,7 @@ export function* asyncToasterWorker({ payload }) {
   const id = Math.random()
 
   yield put({ type: SHOW_TOAST_START, payload: { text: payload.text, id, type: payload.type } })
-  yield call(delay, 500)
+  yield call(delay, 100)
   yield put({ type: SHOW_TOAST_FINISH, payload: id })
   yield call(delay, payload.delay)
   yield put({ type: HIDE_TOAST_START, payload: id })
@@ -29,7 +29,7 @@ export function* asyncToasterWorker({ payload }) {
 }
 export function* forcehideToasterWorker({ payload }) {
   yield put({ type: HIDE_TOAST_START, payload })
-  yield call(delay, 500)
+  yield call(delay, 100)
   yield put({ type: HIDE_TOAST_FINISH, payload })
   yield call(delay, 500)
   yield put({ type: REMOVE_TOAST, payload })

@@ -17,7 +17,6 @@ function App() {
 
     if (!!normalizedValue) {
       if (list.includes(normalizedValue)) {
-        // alert("Такой город есть в списке")
         dispatch(showAsyncToast({ text: 'Такой город есть в списке', delay: 3000, type: 'warning' }))
         return
       }
