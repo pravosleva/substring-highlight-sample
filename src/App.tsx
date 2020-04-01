@@ -6,11 +6,11 @@ import { ItemWrapper } from './components/ItemWrapper/index'
 import { useInputValue } from './hooks/useInputValue'
 import { useSelector, useDispatch } from 'react-redux'
 import { addCity, removeCity, showAsyncToast } from './actions'
-import { Toast } from './components/Toaster'
+import { Toaster } from './components/Toaster'
 
 function App() {
   const input = useInputValue('')
-  const list = useSelector((state) => state.citylist)
+  const list: string[] = useSelector((state) => state.citylist)
   const dispatch = useDispatch()
   const handleAdd = (): void => {
     const normalizedValue = input.getNormalizedValue()
@@ -33,7 +33,7 @@ function App() {
 
   return (
     <div className="App">
-      <Toast />
+      <Toaster />
       <header className="App-header">
         <div className="simple-box">
           <h2>New City</h2>

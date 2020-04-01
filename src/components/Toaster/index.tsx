@@ -17,7 +17,7 @@ const getFontAwesomeClassNameByType = (type: ToastType): FontAwesomeClassNamesAs
       return 'fa-info-circle'
   }
 }
-export const Toast: React.FC = () => {
+export const Toaster: React.FC = () => {
   const items: ToastModel[] = useSelector((state: any) => state.toaster.items)
   const dispatch = useDispatch()
   const handleRemove = (id: number): void => {
