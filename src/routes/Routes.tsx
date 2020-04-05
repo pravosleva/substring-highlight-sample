@@ -25,9 +25,11 @@ export const Routes = () => {
     <BrowserRouter>
       <div className={mainStyles['fixed-top-nav-menu']}>
         {routes.map((route, index) => (
-          <Link key={index} to={route.path}>
-            {route.link.text}
-          </Link>
+          <span>
+            <Link key={index} to={route.path}>
+              {route.link.text}
+            </Link>
+          </span>
         ))}
       </div>
       <Switch>

@@ -5,9 +5,11 @@ const inititalState = {
     isLoading: false,
 
     items: [],
-    totalCount: 0,
-    pagesCount: 0,
-    pageSize: 0,
+    pagination: {
+      totalCount: 0,
+      pagesCount: 0,
+      pageSize: 0,
+    },
   },
 }
 
@@ -19,9 +21,11 @@ export const uremont = (state = inititalState, action: any) => {
         reviews: {
           items: [...state.reviews.items, ...action.payload.reviews],
           isLoading: false,
-          totalCount: action.payload.totalCount,
-          pagesCount: action.payload.pagesCount,
-          pageSize: action.payload.pageSize,
+          totalCount: 0,
+          pagesCount: 0,
+          pagination: {
+            ...action.payload.pagination,
+          },
         },
       }
     case SET_IS_LOADING_REVIEW_ITEMS:

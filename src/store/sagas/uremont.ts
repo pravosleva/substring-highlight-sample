@@ -1,10 +1,11 @@
-import { put, takeEvery, call } from 'redux-saga/effects'
+import { put, takeEvery, call, select } from 'redux-saga/effects'
 import {
   ASYNC_LOAD_REVIEW_ITEMS,
   setIsLoadingReviewItems,
   LoadReviewItemsParamsModel,
   addReviewsItems,
   // LoadReviewItemsResponseModel,
+  showAsyncToast,
 } from '../../actions'
 
 export function fetchReviewsData(params: LoadReviewItemsParamsModel) {
@@ -60,9 +61,15 @@ export function* asyncLoadReviewItemsWorker(action: any) {
     yield put(
       addReviewsItems({
         reviews: data.reviews,
-        totalCount: data.totalCount,
-        pagesCount: data.pagesCount,
-        pageSize: data.pageSize,
+        pagination: data.pagination,
+      })
+    )
+    const state = yield select()
+    yield put(
+      showAsyncToast({
+        text: `${state.uremont.reviews.items.length} of ${data.pagination.totalCount} received`,
+        delay: 3000,
+        type: 'info',
       })
     )
   }

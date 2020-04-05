@@ -10,9 +10,11 @@ export interface RootStateModel extends Store {
     reviews: {
       isLoading: boolean
       items: UremontReviewModel[]
-      totalCount: number
-      pagesCount: number
-      pageSize: number
+      pagination: {
+        totalCount: number
+        pagesCount: number
+        pageSize: number
+      }
     }
   }
 }

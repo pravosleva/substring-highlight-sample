@@ -26,9 +26,11 @@ export interface LoadReviewItemsParamsModel {
 }
 export interface ReviewsPayloadModel {
   reviews: UremontReviewModel[]
-  totalCount: number
-  pagesCount: number
-  pageSize: number
+  pagination: {
+    totalCount: number
+    pagesCount: number
+    pageSize: number
+  }
 }
 
 export const resetReviewItems = () => {
