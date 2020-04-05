@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { getEscapedRegExpChars } from '../utils/getEscapedRegExpChars'
+import { getEscapedRegExpChars } from '../../../utils/getEscapedRegExpChars'
 
 const upperCaseFirstChar = (str: string): string => {
   if (!str) return str

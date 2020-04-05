@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { ToastType, ToastModel, forceHideToast } from '../../actions'
 import cn from 'classnames'
+import styles from './Toaster.module.scss'
 
 type FontAwesomeClassNamesAsMsgType = 'fa-ban' | 'fa-exclamation-triangle' | 'fa-info-circle'
 
@@ -25,10 +26,14 @@ export const Toaster: React.FC = () => {
   }
 
   return (
-    <div className="toast-container">
+    <div className={styles['toast-container']}>
       {items.map((e: ToastModel) => (
-        <div key={e.id} className={`toast-item toast-item--${e.status}`} onClick={handleRemove.bind(null, e.id)}>
-          <div className="toast-item--wrapper">
+        <div
+          key={e.id}
+          className={cn(styles['toast-container__toast-item'], styles[`toast-container__toast-item__${e.status}`])}
+          onClick={handleRemove.bind(null, e.id)}
+        >
+          <div className={styles.wrapper}>
             <div>
               <i className={cn('fas', getFontAwesomeClassNameByType(e.type))}></i>
             </div>

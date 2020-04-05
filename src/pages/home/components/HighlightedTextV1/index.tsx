@@ -1,6 +1,6 @@
 import React from 'react'
-import { getEscapedRegExpChars } from '../../utils/getEscapedRegExpChars'
-import { upperCaseFirstChar } from '../../utils/upperCaseFirstChar'
+import { getEscapedRegExpChars } from '../../../../utils/getEscapedRegExpChars'
+import { upperCaseFirstChar } from '../../../../utils/upperCaseFirstChar'
 
 // BAD EXAMPLE
 

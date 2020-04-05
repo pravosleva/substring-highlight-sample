@@ -1,12 +1,19 @@
-import { SHOW_TOAST_START, SHOW_TOAST_FINISH, HIDE_TOAST_START, HIDE_TOAST_FINISH, REMOVE_TOAST } from '../../actions'
+import {
+  SHOW_TOAST_START,
+  SHOW_TOAST_FINISH,
+  HIDE_TOAST_START,
+  HIDE_TOAST_FINISH,
+  REMOVE_TOAST,
+  ToastModel,
+} from '../../actions'
 
 const initialState = {
   items: [],
 }
 
-export const toaster = (state = initialState, action) => {
-  var targetItemIndex
-  var newItems
+export const toaster = (state = initialState, action: any) => {
+  var targetItemIndex: number
+  var newItems: ToastModel[]
   switch (action.type) {
     case SHOW_TOAST_START:
       return {

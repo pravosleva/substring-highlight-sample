@@ -1,16 +1,18 @@
 import React from 'react'
-import './App.css'
 import { HighlightedTextV1 } from './components/HighlightedTextV1/index'
 import { HighlightedTextV2 } from './components/HighlightedTextV2/index'
 import { ItemWrapper } from './components/ItemWrapper/index'
 import { useInputValue } from './hooks/useInputValue'
 import { useSelector, useDispatch } from 'react-redux'
-import { addCity, removeCity, showAsyncToast } from './actions'
-import { Toaster } from './components/Toaster'
+import { addCity, removeCity, showAsyncToast } from '../../actions'
+import mainStyles from '../../styles/App.module.scss'
+import homeStyles from './Home.module.scss'
+import cn from 'classnames'
+import { RootStateModel } from '../../store/RootStateModel'
 
-function App() {
+export function Home() {
   const input = useInputValue('')
-  const list: string[] = useSelector((state) => state.citylist)
+  const list: string[] = useSelector((state: RootStateModel) => state.citylist)
   const dispatch = useDispatch()
   const handleAdd = (): void => {
     const normalizedValue = input.getNormalizedValue()
@@ -32,13 +34,12 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <Toaster />
-      <header className="App-header">
-        <div className="simple-box">
+    <div className={mainStyles.container}>
+      <header className={homeStyles.header}>
+        <div className={homeStyles.simpleBox}>
           <h2>New City</h2>
           <div>
-            <div className="inputBox">
+            <div className={homeStyles.inputBox}>
               <input
                 value={input.bind.value}
                 onChange={input.bind.onChange}
@@ -49,26 +50,26 @@ function App() {
               />
               <label htmlFor="cityName">City name</label>
             </div>
-            <div className="inputBox">
+            <div className={homeStyles.inputBox}>
               <input className="ripple" type="submit" onClick={handleAdd} value="Add to list" />
             </div>
           </div>
         </div>
-        <div className="samples-container">
-          <div className="sample-list">
-            <em className="likeTitle muted">Bad sample</em>
-            {list.map((name, i) => (
-              <div key={name}>
+        <div className={homeStyles['samples-container']}>
+          <div className={homeStyles['samples-container__sample-list']}>
+            <em className={cn(homeStyles.likeTitle, homeStyles.muted)}>Bad sample</em>
+            {list.map((name) => (
+              <div key={name} className={homeStyles['samples-container__sample-list__item-wrapper']}>
                 <ItemWrapper onRemove={handleRemove} cityName={name}>
                   <HighlightedTextV1 inputValue={input.bind.value} comparedValue={name} />
                 </ItemWrapper>
               </div>
             ))}
           </div>
-          <div className="sample-list">
-            <em className="likeTitle muted">Good sample</em>
-            {list.map((name, i) => (
-              <div key={name}>
+          <div className={homeStyles['samples-container__sample-list']}>
+            <em className={cn(homeStyles.likeTitle, homeStyles.muted)}>Good sample</em>
+            {list.map((name) => (
+              <div key={name} className={homeStyles['samples-container__sample-list__item-wrapper']}>
                 <ItemWrapper onRemove={handleRemove} cityName={name}>
                   <HighlightedTextV2 inputValueRegExp={input.valueRegExp} comparedValue={name} />
                 </ItemWrapper>
@@ -80,5 +81,3 @@ function App() {
     </div>
   )
 }
-
-export default App

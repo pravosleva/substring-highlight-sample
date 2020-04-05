@@ -9,8 +9,8 @@ import {
   FORCE_HIDE_TOAST,
 } from '../../actions'
 
-export const delay = ms => new Promise(res => setTimeout(res, ms))
-export function* asyncToastWorker({ payload }) {
+export const delay = (ms: number) => new Promise((res) => setTimeout(res, ms))
+export function* asyncToastWorker({ payload }: any) {
   const id = Math.random()
 
   yield put({ type: SHOW_TOAST_START, payload: { text: payload.text, id, type: payload.type } })
@@ -23,7 +23,7 @@ export function* asyncToastWorker({ payload }) {
   yield call(delay, 500)
   yield put({ type: REMOVE_TOAST, payload: id })
 }
-export function* forceHideToastWorker({ payload }) {
+export function* forceHideToastWorker({ payload }: any) {
   yield put({ type: HIDE_TOAST_START, payload })
   yield call(delay, 100)
   yield put({ type: HIDE_TOAST_FINISH, payload })
