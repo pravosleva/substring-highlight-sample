@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootStateModel } from '../../../store/RootStateModel'
 import { useInfiniteScroll } from 'react-infinite-scroll-hook'
 import { Loader } from '../../../components/Loader'
+import { ReviewsItem } from './components/ReviewsItem'
+import styles from './Reviews.module.scss'
 
 const getUniqueKey = (review: UremontReviewModel): string => {
   return Object.values(review).join('-')
@@ -53,13 +55,9 @@ export const Reviews: React.FC = () => {
   return (
     <div className={mainStyles.container} ref={infiniteRef}>
       <header className={mainStyles.header} />
-      <div>
+      <div className={styles.wrapper}>
         {reviews.map((e) => (
-          <div key={getUniqueKey(e)}>
-            {e.customer_name}
-            <br />
-            {e.text}
-          </div>
+          <ReviewsItem key={getUniqueKey(e)} item={e} />
         ))}
       </div>
       <div style={{ minHeight: '100px' }}>{isLoading && <Loader />}</div>

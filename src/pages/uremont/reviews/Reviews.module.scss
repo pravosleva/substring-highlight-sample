@@ -1,0 +1,19 @@
+.wrapper {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 900px;
+
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: 768px) {
+    > div:first-child {
+      margin-top: 30px;
+    }
+    > div:not(:last-child) {
+      margin-bottom: 30px;
+    }
+  }
+  @media (max-width: 767px) {
+  }
+}

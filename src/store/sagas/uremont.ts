@@ -7,6 +7,7 @@ import {
   // LoadReviewItemsResponseModel,
   showAsyncToast,
 } from '../../actions'
+import { RootStateModel } from '../RootStateModel'
 
 export function fetchReviewsData(params: LoadReviewItemsParamsModel) {
   const body = new FormData()
@@ -50,6 +51,7 @@ export function fetchReviewsData(params: LoadReviewItemsParamsModel) {
     })
 }
 
+const getReviewsLength = (state: RootStateModel) => state.uremont.reviews.items.length
 export function* asyncLoadReviewItemsWorker(action: any) {
   const { payload } = action
 
@@ -64,10 +66,10 @@ export function* asyncLoadReviewItemsWorker(action: any) {
         pagination: data.pagination,
       })
     )
-    const state = yield select()
+    const reviewsLength = yield select(getReviewsLength)
     yield put(
       showAsyncToast({
-        text: `${state.uremont.reviews.items.length} of ${data.pagination.totalCount} received`,
+        text: `${reviewsLength} of ${data.pagination.totalCount} received`,
         delay: 3000,
         type: 'info',
       })
