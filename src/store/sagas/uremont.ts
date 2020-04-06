@@ -8,6 +8,7 @@ import {
   showAsyncToast,
 } from '../../actions'
 import { RootStateModel } from '../RootStateModel'
+import { HttpRequestError } from '../../utils/errors/HttpRequestError'
 
 export function fetchReviewsData(params: LoadReviewItemsParamsModel) {
   const body = new FormData()
@@ -33,36 +34,41 @@ export function fetchReviewsData(params: LoadReviewItemsParamsModel) {
     body,
   })
     .then((res) => {
-      // TODO: Response handler...
-
-      return res.json()
+      if (res.ok) {
+        return res.json()
+      } else {
+        throw new HttpRequestError(res.status, 'Неожиданный ответ от сервера')
+      }
     })
     .then((json) => {
-      // TODO: Check format and throw Error if necessary...
-
-      return json
-
-      // --- Error format sample:
-      // return {
-      //   success: 0,
-      //   errors: {
-      //     err1: ['txt11', 'txt12', 'txt13'],
-      //     err2: ['txt21', 'txt22', 'txt23'],
-      //     err3: ['txt31', 'txt32', 'txt33'],
-      //   },
-      // }
-      // ---
+      if (json.success === 1) {
+        return json
+      } else {
+        throw new Error(json)
+      }
     })
-    .catch((err) => {
-      // TODO: Should be refactored...
-
+    .catch((err: any) => {
+      // 1. Http errors:
+      if (err instanceof HttpRequestError) {
+        return {
+          success: 0,
+          errors: {
+            reason: [err.status, err.message],
+          },
+        }
+      }
+      // 2. Other errors from backend:
+      if (err && err.errors) {
+        return {
+          success: 0,
+          errors: err.errors,
+        }
+      }
+      // 3. Undefined error:
       return {
-        success: 1,
-        reviews: [],
-        pagination: {
-          totalCount: 0,
-          pagesCount: 0,
-          pageSize: 0,
+        success: 0,
+        errors: {
+          errType1: ['Неизвестная ошибка'],
         },
       }
     })

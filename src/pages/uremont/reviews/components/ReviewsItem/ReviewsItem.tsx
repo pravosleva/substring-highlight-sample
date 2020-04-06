@@ -9,7 +9,7 @@ export const ReviewsItem: React.FC<{
     customer_image,
     customer_name,
     customer_auto,
-    // rating,
+    rating,
     // location_rate,
     // qualification_rate,
     // appearance_rate,
@@ -42,6 +42,7 @@ export const ReviewsItem: React.FC<{
             <div className={styles['item-wrapper__body__info__customer__auto']}>{customer_auto}</div>
           </div>
         </div>
+        <div className={styles['item-wrapper__body__rating']}>{rating}</div>
       </div>
       <div className={styles['item-wrapper__footer']}>{text}</div>
     </div>
