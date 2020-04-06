@@ -21,8 +21,6 @@ export const uremont = (state = inititalState, action: any) => {
         reviews: {
           items: [...state.reviews.items, ...action.payload.reviews],
           isLoading: false,
-          totalCount: 0,
-          pagesCount: 0,
           pagination: {
             ...action.payload.pagination,
           },
@@ -40,6 +38,7 @@ export const uremont = (state = inititalState, action: any) => {
       return {
         ...state,
         reviews: {
+          items: action.payload,
           ...inititalState.reviews,
         },
       }

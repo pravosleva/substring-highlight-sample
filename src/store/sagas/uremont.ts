@@ -33,21 +33,36 @@ export function fetchReviewsData(params: LoadReviewItemsParamsModel) {
     body,
   })
     .then((res) => {
-      console.log(res)
       // TODO...
 
       return res.json()
     })
     .then((json) => {
-      console.log(json)
-
       // TODO...
-      return json
+
+      // return json
+      return {
+        success: 0,
+        errors: {
+          err1: ['txt11', 'txt12', 'txt13'],
+          err2: ['txt21', 'txt22', 'txt23'],
+          err3: ['txt31', 'txt32', 'txt33'],
+        },
+      }
     })
     .catch((err) => {
-      console.log(err)
+      console.error(err)
 
       // TODO...
+
+      return {
+        reviews: [],
+        pagination: {
+          totalCount: 0,
+          pagesCount: 0,
+          pageSize: 0,
+        },
+      }
     })
 }
 
@@ -59,7 +74,7 @@ export function* asyncLoadReviewItemsWorker(action: any) {
 
   const data = yield call(fetchReviewsData, payload)
 
-  if (data.reviews && Array.isArray(data.reviews)) {
+  if (data.success === 1 && data.reviews && Array.isArray(data.reviews)) {
     yield put(
       addReviewsItems({
         reviews: data.reviews,
@@ -70,8 +85,29 @@ export function* asyncLoadReviewItemsWorker(action: any) {
     yield put(
       showAsyncToast({
         text: `${reviewsLength} of ${data.pagination.totalCount} received`,
-        delay: 3000,
+        delay: 5000,
         type: 'info',
+      })
+    )
+  } else {
+    let text = 'Ошибка'
+    let errorsStr = ''
+
+    if (data.errors && Object.keys(data.errors).length > 0) {
+      Object.keys(data.errors).forEach((e: any) => {
+        if (Array.isArray(data.errors[e])) {
+          data.errors[e].forEach((str: string) => {
+            errorsStr += `; ${str}`
+          })
+        }
+      })
+    }
+
+    yield put(
+      showAsyncToast({
+        text: text.concat(': ', errorsStr.slice(2)),
+        delay: 60000,
+        type: 'error',
       })
     )
   }

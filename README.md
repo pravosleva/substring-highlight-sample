@@ -3,9 +3,10 @@
 ![Image of Yaktocat](./_screen/2020-03-31-11-13.gif)
 
 ## Stack
-- React
-- Redux
+
+- React / Redux
 - Redux-saga
+- SCSS
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

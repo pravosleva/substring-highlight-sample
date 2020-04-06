@@ -27,16 +27,21 @@
   }
 
   &__toast-item {
-    @media (min-width: 768px) {
-      border-radius: 10px;
-    }
-    cursor: pointer;
     box-sizing: border-box;
     width: 100%;
     font-size: 1em;
     padding: 1.3em;
     transition: all 0.3s ease-in-out;
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.15);
+
+    @media (min-width: 768px) {
+      border-radius: 10px;
+      cursor: pointer;
+      box-sizing: border-box;
+      max-width: 360px;
+    }
+    @media (max-width: 767px) {}
+    
     &:hover {
       background-color: #686c73;
       color: yellow;
@@ -78,7 +83,9 @@
 
 .wrapper {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
 }
 .wrapper > div:not(:last-child) {
   margin-right: 15px;

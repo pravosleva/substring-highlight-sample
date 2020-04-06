@@ -71,7 +71,7 @@
         "@typescript-eslint/no-use-before-define": "off",
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "off",
-        "@typescript-eslint/camelcase": "warn",
+        "@typescript-eslint/camelcase": "off",
         "no-console": 0,
         "@typescript-eslint/ban-ts-ignore": "off",
         "@typescript-eslint/no-empty-interface": "off",
