@@ -33,29 +33,31 @@ export function fetchReviewsData(params: LoadReviewItemsParamsModel) {
     body,
   })
     .then((res) => {
-      // TODO...
+      // TODO: Response handler...
 
       return res.json()
     })
     .then((json) => {
-      // TODO...
+      // TODO: Check format and throw Error if necessary...
 
-      // return json
-      return {
-        success: 0,
-        errors: {
-          err1: ['txt11', 'txt12', 'txt13'],
-          err2: ['txt21', 'txt22', 'txt23'],
-          err3: ['txt31', 'txt32', 'txt33'],
-        },
-      }
+      return json
+
+      // --- Error format sample:
+      // return {
+      //   success: 0,
+      //   errors: {
+      //     err1: ['txt11', 'txt12', 'txt13'],
+      //     err2: ['txt21', 'txt22', 'txt23'],
+      //     err3: ['txt31', 'txt32', 'txt33'],
+      //   },
+      // }
+      // ---
     })
     .catch((err) => {
-      console.error(err)
-
-      // TODO...
+      // TODO: Should be refactored...
 
       return {
+        success: 1,
         reviews: [],
         pagination: {
           totalCount: 0,

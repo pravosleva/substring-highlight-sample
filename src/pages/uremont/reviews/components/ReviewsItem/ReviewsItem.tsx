@@ -32,7 +32,10 @@ export const ReviewsItem: React.FC<{
       <div className={styles['item-wrapper__body']}>
         <div className={styles['item-wrapper__body__info']}>
           <div className={styles['item-wrapper__body__info__car-brand-image']}>
-            <img src={!!customer_image ? customer_image : 'https://uremont.com/static/img/default-logo.jpg'} />
+            <img
+              alt="logo"
+              src={!!customer_image ? customer_image : 'https://uremont.com/static/img/default-logo.jpg'}
+            />
           </div>
           <div className={styles['item-wrapper__body__info__customer']}>
             <div className={styles['item-wrapper__body__info__customer__name']}>{customer_name}</div>
