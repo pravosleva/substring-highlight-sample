@@ -49,7 +49,7 @@ export const Reviews: React.FC = () => {
 
   useEffect(() => {
     handleScrollToContent()
-    dispatch(resetReviewItems())
+    return () => dispatch(resetReviewItems())
   }, [dispatch])
 
   return (
