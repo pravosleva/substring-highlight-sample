@@ -1,0 +1,17 @@
+.btn-default {
+  outline: none;
+  border: none;
+  line-height: 36px;
+  border-radius: 10px;
+  color: #FFF;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 30px;
+  background-color: #003366;
+  transition: all 0.2s linear;
+}
+.btn-default:hover, .btn-default:focus {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  transform: translateY(-2px);
+}

@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { Redirect } from 'react-router-dom'
 import { UserAuthContext } from '../../context/auth/UserAuthContext'
 import mainStyles from '../../styles/App.module.scss'
+import profileStyles from './Profile.module.scss'
 
 export function Profile() {
   const { user, setUser } = useContext(UserAuthContext)
@@ -12,7 +13,13 @@ export function Profile() {
       {
         !user && <Redirect to='/auth/login' />
       }
-      <button onClick={() => setUser(null)} style={{ marginTop: '10px' }}>Logout</button>
+      <button
+        onClick={() => setUser(null)}
+        style={{ marginTop: '10px' }}
+        className={profileStyles['btn-default']}
+      >
+        Logout
+      </button>
     </div>
   )
 }
