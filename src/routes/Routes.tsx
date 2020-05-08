@@ -1,13 +1,13 @@
-import React, { useMemo, useState } from 'react'
+import React, { useContext } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { Home } from '../pages/home'
 import { NotFound } from '../pages/not-found'
 import { Reviews } from '../pages/uremont/reviews'
-import { UserAuthContext } from '../context/auth/UserAuthContext'
 import { Login } from '../pages/auth/login'
 import { Profile } from '../pages/profile'
 import mainStyles from '../styles/App.module.scss'
 import { StyledLinkItem } from './components/StyledLinkItem'
+import { UserAuthContext } from '../context/auth/UserAuthContext'
 
 const routes = [
   {
@@ -37,31 +37,28 @@ const routes = [
 ]
 
 export const Routes = () => {
-  const [user, setUser] = useState(null)
-  const providerUser = useMemo(() => ({ user, setUser }), [user, setUser])
+  const { user } = useContext(UserAuthContext)
   const isAuthenticated = !!user
   const routesLinksForCurrentUser = routes
     .filter(route => (route.options.access.includes('unauthenticated') ? !isAuthenticated : true))
     .filter(route => (route.options.access.includes('authenticated') ? isAuthenticated : true))
 
   return (
-    <UserAuthContext.Provider value={providerUser}>
-      <BrowserRouter>
-        <div className={mainStyles['fixed-top-nav-menu']}>
-          {
-            routesLinksForCurrentUser
-              .map(route => (
-                <StyledLinkItem key={route.path} path={route.path} text={route.options.text} />
-              ))
-          }
-        </div>
-        <Switch>
-          {routes.map((route, index) => (
-            <Route key={index} path={route.path} exact={route.exact} component={route.main} />
-          ))}
-          <Route exact path="/*" component={NotFound} />
-        </Switch>
-      </BrowserRouter>
-    </UserAuthContext.Provider>
+    <BrowserRouter>
+      <div className={mainStyles['fixed-top-nav-menu']}>
+        {
+          routesLinksForCurrentUser
+            .map(route => (
+              <StyledLinkItem key={route.path} path={route.path} text={route.options.text} />
+            ))
+        }
+      </div>
+      <Switch>
+        {routes.map((route, index) => (
+          <Route key={index} path={route.path} exact={route.exact} component={route.main} />
+        ))}
+        <Route exact path="/*" component={NotFound} />
+      </Switch>
+    </BrowserRouter>
   )
 }
