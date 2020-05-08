@@ -38,8 +38,8 @@ export const uremont = (state = inititalState, action: any) => {
       return {
         ...state,
         reviews: {
-          items: action.payload,
           ...inititalState.reviews,
+          items: action.payload,
         },
       }
     default:

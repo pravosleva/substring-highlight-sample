@@ -1,6 +1,6 @@
 # substring-highlight-sample
 
-![Image of Yaktocat](./_screen/2020-03-31-11-13.gif)
+![Image of Yaktocat](./_screen/2020-05-08-13-03.gif)
 
 ## Stack
 
