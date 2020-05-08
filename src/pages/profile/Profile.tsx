@@ -10,14 +10,8 @@ export function Profile() {
   return (
     <div className={mainStyles.container} style={{ maxWidth: '300px', margin: '0 auto' }}>
       <pre style={{ textAlign: 'left' }}>{JSON.stringify(user, null, 2)}</pre>
-      {
-        !user && <Redirect to='/auth/login' />
-      }
-      <button
-        onClick={() => setUser(null)}
-        style={{ marginTop: '10px' }}
-        className={profileStyles['btn-default']}
-      >
+      {!user && <Redirect to="/auth/login" />}
+      <button onClick={() => setUser(null)} style={{ marginTop: '10px' }} className={profileStyles['btn-default']}>
         Logout
       </button>
     </div>

@@ -21,9 +21,7 @@ export function Login() {
       >
         Login
       </button>
-      {
-        !!user && <Redirect to='/profile' />
-      }
+      {!!user && <Redirect to="/profile" />}
     </div>
   )
 }

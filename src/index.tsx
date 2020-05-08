@@ -12,21 +12,18 @@ const App = () => {
   const providerUser = useMemo(() => ({ user, setUser }), [user, setUser])
 
   return (
-    <UserAuthContext.Provider value={providerUser}>
-      <React.StrictMode>
+    <React.StrictMode>
+      <UserAuthContext.Provider value={providerUser}>
         <Provider store={store}>
           <Toaster />
           <Routes />
         </Provider>
-      </React.StrictMode>
-    </UserAuthContext.Provider>
+      </UserAuthContext.Provider>
+    </React.StrictMode>
   )
 }
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
-)
+ReactDOM.render(<App />, document.getElementById('root'))
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -40,18 +40,15 @@ export const Routes = () => {
   const { user } = useContext(UserAuthContext)
   const isAuthenticated = !!user
   const routesLinksForCurrentUser = routes
-    .filter(route => (route.options.access.includes('unauthenticated') ? !isAuthenticated : true))
-    .filter(route => (route.options.access.includes('authenticated') ? isAuthenticated : true))
+    .filter((route) => (route.options.access.includes('unauthenticated') ? !isAuthenticated : true))
+    .filter((route) => (route.options.access.includes('authenticated') ? isAuthenticated : true))
 
   return (
     <BrowserRouter>
       <div className={mainStyles['fixed-top-nav-menu']}>
-        {
-          routesLinksForCurrentUser
-            .map(route => (
-              <StyledLinkItem key={route.path} path={route.path} text={route.options.text} />
-            ))
-        }
+        {routesLinksForCurrentUser.map((route) => (
+          <StyledLinkItem key={route.path} path={route.path} text={route.options.text} />
+        ))}
       </div>
       <Switch>
         {routes.map((route, index) => (
