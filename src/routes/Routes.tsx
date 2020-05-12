@@ -5,6 +5,7 @@ import { NotFound } from '../pages/not-found'
 import { Reviews } from '../pages/uremont/reviews'
 import { Login } from '../pages/auth/login'
 import { Profile } from '../pages/profile'
+import { About } from '../pages/about'
 import mainStyles from '../styles/App.module.scss'
 import { StyledLinkItem } from './components/StyledLinkItem'
 import { UserAuthContext } from '../context/auth/UserAuthContext'
@@ -33,6 +34,12 @@ const routes = [
     exact: true,
     main: () => <Profile />,
     options: { text: 'Profile', access: ['authenticated'] },
+  },
+  {
+    path: '/about',
+    exact: true,
+    main: () => <About />,
+    options: { text: 'About', access: ['free'] },
   },
 ]
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import mainStyles from '../../../styles/App.module.scss'
 import { loadReviewItems, UremontReviewModel, resetReviewItems } from '../../../actions'
 import { useSelector, useDispatch } from 'react-redux'
@@ -9,7 +9,28 @@ import { ReviewsItem } from './components/ReviewsItem'
 import styles from './Reviews.module.scss'
 
 const getUniqueKey = (review: UremontReviewModel): string => {
-  return Object.values(review).join('-')
+  const expectedFields = [
+    'appearance_rate',
+    'cost',
+    'create_time',
+    'customer_auto',
+    'customer_name',
+    'final_cost_rate',
+    'location_rate',
+    'qualification_rate',
+    'raiting',
+    'repair_quality_rate',
+    'text',
+  ]
+  const values = []
+
+  for (const key in review) {
+    if (expectedFields.includes(key)) {
+      values.push(review[key])
+    }
+  }
+
+  return values.join('-')
 }
 
 export const Reviews: React.FC = () => {
@@ -18,13 +39,13 @@ export const Reviews: React.FC = () => {
   const pagesCount: number = useSelector((state: RootStateModel) => state.uremont.reviews.pagination.pagesCount)
   const isLoading: boolean = useSelector((state: RootStateModel) => state.uremont.reviews.isLoading)
   const [page, setPage] = useState(1)
-  const handleScrollToContent = (): void => {
+  const handleScrollToContent = useCallback((): void => {
     window?.scrollTo({
       behavior: 'smooth',
       top: window.innerHeight - 100,
       left: 0,
     })
-  }
+  }, [])
 
   function handleLoadMore(): void {
     if (pagesCount > page) setPage(page + 1)
@@ -49,8 +70,9 @@ export const Reviews: React.FC = () => {
 
   useEffect(() => {
     handleScrollToContent()
+    dispatch(resetReviewItems())
     return () => dispatch(resetReviewItems())
-  }, [dispatch])
+  }, [dispatch, handleScrollToContent])
 
   return (
     <div className={mainStyles.container} ref={infiniteRef}>

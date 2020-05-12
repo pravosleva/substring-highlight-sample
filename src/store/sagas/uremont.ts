@@ -1,4 +1,4 @@
-import { put, takeEvery, call, select } from 'redux-saga/effects'
+import { put, takeLatest, call, select } from 'redux-saga/effects'
 import {
   ASYNC_LOAD_REVIEW_ITEMS,
   setIsLoadingReviewItems,
@@ -124,5 +124,5 @@ export function* asyncLoadReviewItemsWorker(action: any) {
 }
 
 export function* watchAsyncLoadReviewItems() {
-  yield takeEvery(ASYNC_LOAD_REVIEW_ITEMS, asyncLoadReviewItemsWorker)
+  yield takeLatest(ASYNC_LOAD_REVIEW_ITEMS, asyncLoadReviewItemsWorker)
 }

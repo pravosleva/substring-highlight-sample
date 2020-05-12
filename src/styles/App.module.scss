@@ -11,6 +11,12 @@ body {
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  color: inherit;
+  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(127, 113, 109, 0.1);
+  padding: 1px 4px 1px 4px;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
 }
 
 .container {
