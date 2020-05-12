@@ -6,7 +6,7 @@ import mainStyles from '../../../styles/App.module.scss'
 import loginStyles from './Login.module.scss'
 
 export function Login() {
-  const { user, setUser } = useContext(UserAuthContext)
+  const { user, onLogin } = useContext(UserAuthContext)
 
   return (
     <div className={mainStyles.container}>
@@ -15,8 +15,9 @@ export function Login() {
         className={loginStyles['btn-default']}
         onClick={async () => {
           const user = await login()
+          // TODO: move auth from context to redux -> async login to saga
 
-          setUser(user)
+          onLogin(user)
         }}
       >
         Login
