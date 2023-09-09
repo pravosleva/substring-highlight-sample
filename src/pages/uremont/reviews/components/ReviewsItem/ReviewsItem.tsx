@@ -33,6 +33,7 @@ export const ReviewsItem: React.FC<{
         <div className={styles['item-wrapper__body__info']}>
           <div className={styles['item-wrapper__body__info__car-brand-image']}>
             <img
+              style={{ maxWidth: '100%', maxHeight: '100%' }}
               alt="logo"
               src={!!customer_image ? customer_image : 'https://uremont.com/static/img/default-logo.jpg'}
             />
