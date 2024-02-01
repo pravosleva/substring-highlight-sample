@@ -80,7 +80,7 @@ export const Sample = memo(() => {
               showAsyncToast({
                 type: 'info',
                 text: `+${reviews.length} (page ${paginationRef.current.page}; items ${records.length} of ${paginationRef.current.totalCount})`,
-                delay: 6000,
+                delay: 3000,
               })
             )
 
@@ -100,7 +100,7 @@ export const Sample = memo(() => {
         },
       })
 
-    const interval = setInterval(getListPack, 3000)
+    const interval = setInterval(getListPack, 1000)
     return () => clearInterval(interval) // eslint-disable-next-line
   }, [isDone])
 

@@ -1,0 +1,102 @@
+.wrapper {
+  padding: 8px;
+  border-radius: 16px;
+  font-size: 13px;
+  box-shadow: none;
+  transition: all 0.3s linear;
+}
+// .relativeBox { position: relative; }
+
+.bottomCenter {
+  &.wrapper {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(calc(100% + 8px));
+
+  &.isClosed {
+    transform: translateX(-50%) translateY(100%);
+  }
+  &.isOpened {
+    transform: translateX(-50%) translateY(0%);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 10px 4px;
+  }
+
+  .absoluteToggler {
+    cursor: pointer;
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    // right: 8px;
+    // transform: translateY(calc(100% + 8px));
+
+    border: 1px solid lightgray;
+    border-radius: 16px;
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background-color: rgba(255,255,255,0.8);
+  }
+}
+.topCenter {
+  &.isClosed {
+    transform: translateX(-50%) translateY(-100%);
+  }
+  &.isOpened {
+    transform: translateX(-50%) translateY(0%);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 10px 4px;
+  }
+
+  .absoluteToggler {
+    cursor: pointer;
+    position: absolute;
+
+    // right: 8px;
+    // transform: translateY(calc(100% + 8px));
+
+    border: 1px solid lightgray;
+    border-radius: 16px;
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background-color: rgba(255,255,255,0.8);
+  }
+}
+
+.stack0 {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+.stack1 {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.stack2 {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fixedBox {
+  position: fixed;
+  z-index: 5;
+}
+.topCenter {
+  top: 0;
+  left: 50%;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+.canvas {
+  border: none;
+}

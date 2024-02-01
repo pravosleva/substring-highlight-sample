@@ -7,6 +7,8 @@ import { Provider } from 'react-redux'
 import { store } from './store'
 import { UserAuthContext } from './context/auth/UserAuthContext'
 import { groupLog } from './utils/groupLog'
+import { ClientPerfWidget } from 'src/components/ClientPerfWidget'
+import './backdrop-blur.css'
 
 let renderCounter = 0
 
@@ -53,6 +55,7 @@ const App = () => {
           <Toaster />
           <Routes />
         </Provider>
+        <ClientPerfWidget position="bottom-center" />
       </UserAuthContext.Provider>
     </React.StrictMode>
   )
