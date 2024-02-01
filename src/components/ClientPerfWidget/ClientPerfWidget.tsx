@@ -1,4 +1,4 @@
-import React, { useState, useRef, useLayoutEffect, useMemo, useCallback } from 'react'
+import React, { useState, useRef, useLayoutEffect, useMemo, useCallback, memo } from 'react'
 import clsx from 'clsx'
 import classes from './ClientPerfWidget.module.scss'
 import { linear } from 'math-interpolate'
@@ -58,7 +58,7 @@ const getOffsetY = ({ data, fullPx, targetField }: { data: TMainStackItem; fullP
 const getStepX = ({ fullWidthPx, totalStackItems }: { fullWidthPx: number; totalStackItems: number }) =>
   fullWidthPx / (totalStackItems * 2 < 100 ? 100 : totalStackItems * 2)
 
-export const ClientPerfWidget = (ps: TProps) => {
+export const ClientPerfWidget = memo((ps: TProps) => {
   // const dispatch = useDispatch()
   // const reduxState = useSelector((state: IRootState) => state)
   // const isBrowserMemoryMonitorEnabled = useSelector((state: IRootState) => state.customDevTools.browserMemoryMonitor.isEnabled)
@@ -194,4 +194,4 @@ export const ClientPerfWidget = (ps: TProps) => {
       )}
     </div>
   )
-}
+})
