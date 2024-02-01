@@ -2,13 +2,14 @@ import React, { useContext } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { Home } from '../pages/home'
 import { NotFound } from '../pages/not-found'
-import { Reviews } from '../pages/uremont/reviews'
+import { Reviews } from '../pages/uremont/reviews/react-infinite-scroll-hook'
 import { Login } from '../pages/auth/login'
 import { Profile } from '../pages/profile'
 import { About } from '../pages/about'
 import mainStyles from '../styles/App.module.scss'
 import { StyledLinkItem } from './components/StyledLinkItem'
 import { UserAuthContext } from '../context/auth/UserAuthContext'
+import { Sample } from '../pages/uremont/reviews/kai3341-sample'
 
 const routes = [
   {
@@ -18,10 +19,16 @@ const routes = [
     options: { text: 'Home', access: ['free'] },
   },
   {
-    path: '/uremont/reviews',
+    path: '/uremont/reviews/react-infinite-scroll-hook',
     exact: true,
     main: () => <Reviews />,
-    options: { text: 'Uremont Reviews', access: ['free'] },
+    options: { text: 'UReviews', access: ['free'] },
+  },
+  {
+    path: '/uremont/reviews/kai3341-sample',
+    exact: true,
+    main: () => <Sample />,
+    options: { text: 'UReviews | kai3341', access: ['free'] },
   },
   {
     path: '/auth/login',

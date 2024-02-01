@@ -6,7 +6,7 @@ import * as serviceWorker from './serviceWorker'
 import { Provider } from 'react-redux'
 import { store } from './store'
 import { UserAuthContext } from './context/auth/UserAuthContext'
-import { specialLog } from './utils/specialLog'
+import { groupLog } from './utils/groupLog'
 
 let renderCounter = 0
 
@@ -19,16 +19,24 @@ interface UserModel {
 const App = () => {
   const [user, setUser] = useState(null)
 
-  specialLog('APP RENDER COUNTER', null, [++renderCounter])
+  groupLog({
+    logType: 'info',
+    header: 'APP RENDER COUNTER',
+    argsArr: [++renderCounter],
+  })
 
   useEffect(() => {
-    specialLog('User auth init', 'todo', [
-      'Get token from LS;',
-      '1.1) TOKEN EXISTS: Load from back by token;',
-      '  2.1) OK: setUser(data);',
-      '  2.2) FAIL: clear LS;',
-      '1.2) TOKEN DOES NOT EXISTS: nothing;',
-    ])
+    groupLog({
+      header: 'User auth init',
+      logType: 'todo',
+      argsArr: [
+        'Get token from LS;',
+        '1.1) TOKEN EXISTS: Load from back by token;',
+        '  2.1) OK: setUser(data);',
+        '  2.2) FAIL: clear LS;',
+        '1.2) TOKEN DOES NOT EXISTS: nothing;',
+      ],
+    })
   }, [])
   const onLogin = useCallback((data: UserModel) => {
     setUser(data)

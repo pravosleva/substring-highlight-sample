@@ -1,10 +1,10 @@
-import React from 'react'
-import { UremontReviewModel } from '../../../../../actions'
+import React, { memo } from 'react'
+import { UremontReviewModel } from '../../../actions'
 import styles from './ReviewsItem.module.scss'
 
 export const ReviewsItem: React.FC<{
   item: UremontReviewModel
-}> = ({ item }) => {
+}> = memo(({ item }) => {
   const {
     customer_image,
     customer_name,
@@ -48,4 +48,4 @@ export const ReviewsItem: React.FC<{
       <div className={styles['item-wrapper__footer']}>{text}</div>
     </div>
   )
-}
+})

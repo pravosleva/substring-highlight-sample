@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import mainStyles from '../../../styles/App.module.scss'
-import { loadReviewItems, UremontReviewModel, resetReviewItems } from '../../../actions'
+import mainStyles from 'src/styles/App.module.scss'
+import { loadReviewItems, UremontReviewModel, resetReviewItems } from 'src/actions'
 import { useSelector, useDispatch } from 'react-redux'
-import { RootStateModel } from '../../../store/RootStateModel'
+import { RootStateModel } from 'src/store/RootStateModel'
 import { useInfiniteScroll } from 'react-infinite-scroll-hook'
-import { Loader } from '../../../components/Loader'
-import { ReviewsItem } from './components/ReviewsItem'
+import { Loader } from 'src/components/Loader'
+import { ReviewsItem } from 'src/components/Uremont/ReviewsItem'
 import styles from './Reviews.module.scss'
 
 const getUniqueKey = (review: UremontReviewModel): string => {
@@ -82,7 +82,7 @@ export const Reviews: React.FC = () => {
           <ReviewsItem key={getUniqueKey(e)} item={e} />
         ))}
       </div>
-      <div style={{ minHeight: '100px' }}>{isLoading && <Loader />}</div>
+      <div style={{ minHeight: '100px' }}>{<Loader text={page === 1 || isLoading ? 'Loading...' : 'Done.'} />}</div>
     </div>
   )
 }
