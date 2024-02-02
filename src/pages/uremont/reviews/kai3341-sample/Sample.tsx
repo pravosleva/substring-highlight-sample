@@ -9,7 +9,7 @@ import { Loader } from 'src/components/Loader'
 import { groupLog } from 'src/utils/groupLog'
 
 const _isDebugEnabled = true
-const _customPagesLimit: number | null = null
+const _customPagesLimit = null as number | null
 
 const recordFactory = () => [] as UremontReviewModel[]
 
@@ -23,13 +23,13 @@ type TUremontPagination = {
 export const Sample = memo(() => {
   const dispatch = useDispatch()
   const [records, updateRecords] = useWMState(recordFactory, { bind: true })
-  const writeRecord = useCallback(
-    (record) => {
-      records.push(record)
-      updateRecords()
-    },
-    [records, updateRecords]
-  )
+  // const writeRecord = useCallback(
+  //   (record) => {
+  //     records.push(record)
+  //     updateRecords()
+  //   },
+  //   [records, updateRecords]
+  // )
   const paginationRef = useRef<TUremontPagination>({
     page: 0, // NOTE: Will be mutated
 
@@ -73,7 +73,10 @@ export const Sample = memo(() => {
           },
           onSuccess: (res) => {
             const { reviews, pagination } = res
-            for (const review of reviews) writeRecord(review)
+            records.push(...reviews)
+            updateRecords()
+            // for (const review of reviews) writeRecord(review)
+            // @ts-ignore
             for (const key in pagination) if (key !== 'page') paginationRef.current[key] = pagination[key]
 
             dispatch(
@@ -86,6 +89,7 @@ export const Sample = memo(() => {
 
             switch (true) {
               case !!_customPagesLimit:
+                // @ts-ignore
                 if (_customPagesLimit > paginationRef.current.page) paginationRef.current.page += 1
                 else handleDone()
                 break
@@ -106,7 +110,7 @@ export const Sample = memo(() => {
 
   const renderedRecords = useMemo(() => {
     // console.log('- mem')
-    return records.map((item, index) => <ReviewsItem item={item} key={index} />)
+    return records.map((item, index) => <ReviewsItem item={item} key={index} updateItem={() => {}} />)
   }, [records])
 
   return (

@@ -1,37 +1,12 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import mainStyles from 'src/styles/App.module.scss'
-import { loadReviewItems, UremontReviewModel, resetReviewItems } from 'src/actions'
+import { loadReviewItems, UremontReviewModel, resetReviewItems, setReviewItems } from 'src/actions'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootStateModel } from 'src/store/RootStateModel'
-import { useInfiniteScroll } from 'react-infinite-scroll-hook'
+import useInfiniteScroll from 'react-infinite-scroll-hook'
 import { Loader } from 'src/components/Loader'
 import { ReviewsItem } from 'src/components/Uremont/ReviewsItem'
 import styles from './Reviews.module.scss'
-
-const getUniqueKey = (review: UremontReviewModel): string => {
-  const expectedFields = [
-    'appearance_rate',
-    'cost',
-    'create_time',
-    'customer_auto',
-    'customer_name',
-    'final_cost_rate',
-    'location_rate',
-    'qualification_rate',
-    'raiting',
-    'repair_quality_rate',
-    'text',
-  ]
-  const values = []
-
-  for (const key in review) {
-    if (expectedFields.includes(key)) {
-      values.push(review[key])
-    }
-  }
-
-  return values.join('-')
-}
 
 export const Reviews: React.FC = () => {
   const dispatch = useDispatch()
@@ -71,15 +46,29 @@ export const Reviews: React.FC = () => {
   useEffect(() => {
     handleScrollToContent()
     dispatch(resetReviewItems())
-    return () => dispatch(resetReviewItems())
+    return () => {
+      dispatch(resetReviewItems())
+    }
   }, [dispatch, handleScrollToContent])
+
+  const updateItem = useCallback(
+    (diff: any) => {
+      const idx = reviews.findIndex((e) => e.id === diff.id)
+      const item = reviews[idx]
+      const newItem = { ...item, ...diff }
+      const newItems = [...reviews]
+      newItems[idx] = newItem
+      dispatch(setReviewItems(newItems))
+    },
+    [dispatch, reviews]
+  )
 
   return (
     <div className={mainStyles.container} ref={infiniteRef}>
       <header className={mainStyles.header} />
       <div className={styles.wrapper}>
         {reviews.map((e) => (
-          <ReviewsItem key={getUniqueKey(e)} item={e} />
+          <ReviewsItem key={e.id} item={e} updateItem={updateItem} />
         ))}
       </div>
       <div style={{ minHeight: '100px' }}>{<Loader text={page === 1 || isLoading ? 'Loading...' : 'Done.'} />}</div>

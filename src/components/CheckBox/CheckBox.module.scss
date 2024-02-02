@@ -1,0 +1,47 @@
+.checkbox-round {
+  display: inline-block;
+  width: fit-content;
+  position: relative;
+
+  label {
+    pointer-events: none;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    height: 28px;
+    width: 28px;
+    display: block;
+
+    &:after {
+      border: 2px solid #fff;
+      border-top: none;
+      border-right: none;
+      content: '';
+      height: 6px;
+      left: 8px;
+      opacity: 0;
+      position: absolute;
+      top: 9px;
+      transform: rotate(-45deg);
+      width: 12px;
+    }
+  }
+
+  input[type='checkbox'] {
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: all;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    &:checked + label {
+      background-color: #66bb6a !important;
+      border-color: #66bb6a;
+
+      &:after {
+        opacity: 1;
+      }
+    }
+  }
+}

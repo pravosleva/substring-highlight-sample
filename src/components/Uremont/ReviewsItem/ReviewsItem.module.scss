@@ -90,8 +90,13 @@
       display: flex;
       flex-direction: flex-start;
       text-align: left;
-      /*justify-content: space-between;
-      align-items: flex-end;*/
+      justify-content: space-between;
+      /*align-items: flex-end;*/
+
+      &__useful {
+        display: flex;
+        width: fit-content;
+      }
     }
   }
   @media (max-width: 767px) {
@@ -186,8 +191,12 @@
       display: flex;
       flex-direction: flex-start;
       text-align: left;
-      /*justify-content: space-between;
-      align-items: flex-end;*/
+      justify-content: space-between;
+
+      &__useful {
+        display: flex;
+        width: fit-content;
+      }
     }
   }
 }

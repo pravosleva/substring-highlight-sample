@@ -8,7 +8,7 @@ const upperCaseFirstChar = (str: string): string => {
 }
 export const useInputValue = (defaultValue = '') => {
   const [value, setValue] = useState(defaultValue)
-  const [valueRegExp, setValueRegExp] = useState(new RegExp(null))
+  const [valueRegExp, setValueRegExp] = useState(new RegExp(''))
 
   return {
     bind: {
@@ -21,7 +21,7 @@ export const useInputValue = (defaultValue = '') => {
     valueRegExp,
     clear: () => {
       setValue('')
-      setValueRegExp(new RegExp(null))
+      setValueRegExp(new RegExp(''))
     },
     getNormalizedValue: () => {
       return upperCaseFirstChar(value.trim())

@@ -1,9 +1,11 @@
 export const ADD_REVIEW_ITEMS = 'ADD_REVIEW_ITEMS'
 export const SET_REVIEW_ITEMS = 'SET_REVIEW_ITEMS'
+export const RESET_REVIEW_ITEMS = 'RESET_REVIEW_ITEMS'
 export const ASYNC_LOAD_REVIEW_ITEMS = 'ASYNC_LOAD_REVIEW_ITEMS'
 export const SET_IS_LOADING_REVIEW_ITEMS = 'SET_IS_LOADING_REVIEW_ITEMS'
 
 export interface UremontReviewModel {
+  id: number
   customer_image?: string
   customer_name: string
   customer_auto: string
@@ -17,6 +19,7 @@ export interface UremontReviewModel {
   cost: number
   text: string
   create_time: number
+  useful?: boolean
 }
 
 export interface LoadReviewItemsParamsModel {
@@ -33,10 +36,16 @@ export interface ReviewsPayloadModel {
   }
 }
 
-export const resetReviewItems = () => {
+export const setReviewItems = (reviews: UremontReviewModel[]) => {
   return {
     type: SET_REVIEW_ITEMS,
-    payload: [],
+    payload: reviews,
+  }
+}
+
+export const resetReviewItems = () => {
+  return {
+    type: RESET_REVIEW_ITEMS,
   }
 }
 

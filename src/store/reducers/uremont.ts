@@ -1,4 +1,4 @@
-import { SET_REVIEW_ITEMS, ADD_REVIEW_ITEMS, SET_IS_LOADING_REVIEW_ITEMS } from '../../actions'
+import { SET_REVIEW_ITEMS, ADD_REVIEW_ITEMS, SET_IS_LOADING_REVIEW_ITEMS, RESET_REVIEW_ITEMS } from '../../actions'
 
 const inititalState = {
   reviews: {
@@ -38,10 +38,12 @@ export const uremont = (state = inititalState, action: any) => {
       return {
         ...state,
         reviews: {
-          ...inititalState.reviews,
+          ...state.reviews,
           items: action.payload,
         },
       }
+    case RESET_REVIEW_ITEMS:
+      return inititalState
     default:
       return state
   }

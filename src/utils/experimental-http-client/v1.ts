@@ -112,7 +112,7 @@ class HttpClient {
   // TODO: Singletone
   // TODO: Custom { attempts, delay } settings for each method
 
-  constructor({ baseApiUrl }) {
+  constructor({ baseApiUrl }: { baseApiUrl: string }) {
     this.baseURL = baseApiUrl
     // NOTE: axios.create? https://axios-http.com/docs/instance
     this.yourHttpClient = async ({ url, method, body, bodyType, onEarchIterator, validator, cb, isDebugEnabled }) => {
