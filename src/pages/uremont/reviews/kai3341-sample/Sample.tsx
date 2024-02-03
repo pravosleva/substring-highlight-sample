@@ -1,9 +1,10 @@
-import React, { useState, useCallback, useLayoutEffect, memo, useRef, useMemo } from 'react'
+import React, { useState, useCallback, useEffect, memo, useRef, useMemo } from 'react'
 import { useWMState } from '@wrap-mutant/react'
 import { UremontReviewModel, showAsyncToast } from 'src/actions'
 import { ReviewsItem } from 'src/components/Uremont/ReviewsItem'
 import { uremontHttpClient } from 'src/utils/experimental-http-client/v1'
 import { useDispatch } from 'react-redux'
+import useInfiniteScroll from 'react-infinite-scroll-hook'
 import classes from './Sample.module.scss'
 import { Loader } from 'src/components/Loader'
 import { groupLog } from 'src/utils/groupLog'
@@ -23,29 +24,21 @@ type TUremontPagination = {
 export const Sample = memo(() => {
   const dispatch = useDispatch()
   const [records, updateRecords] = useWMState(recordFactory, { bind: true })
-  // const writeRecord = useCallback(
-  //   (record) => {
-  //     records.push(record)
-  //     updateRecords()
-  //   },
-  //   [records, updateRecords]
-  // )
+
   const paginationRef = useRef<TUremontPagination>({
     page: 0, // NOTE: Will be mutated
 
     // NOTE: Reanonly. Controlled on backend anyway =)
     pageSize: 3,
-    pagesCount: 0,
+    pagesCount: 10,
     totalCount: 1,
   })
-  const [isDone, setIsDone] = useState<boolean>(false)
-  const handleDone = useCallback(() => {
-    setIsDone(true)
-  }, [])
 
-  useLayoutEffect(() => {
-    if (isDone) return
-    const getListPack = async () =>
+  const [loading, setLoading] = useState(false)
+  const [hasNextPage, setHasNextPage] = useState(true)
+
+  const getListPack = useCallback(
+    () =>
       uremontHttpClient.getRevewList<{
         ok: boolean
         reviews: UremontReviewModel[]
@@ -59,6 +52,7 @@ export const Sample = memo(() => {
         bodyType: 'formdata',
         cb: {
           onFuckup: (res) => {
+            setLoading(false)
             groupLog({
               header: 'Request failed',
               argsArr: [res],
@@ -72,10 +66,10 @@ export const Sample = memo(() => {
             )
           },
           onSuccess: (res) => {
+            setLoading(false)
             const { reviews, pagination } = res
             records.push(...reviews)
             updateRecords()
-            // for (const review of reviews) writeRecord(review)
             // @ts-ignore
             for (const key in pagination) if (key !== 'page') paginationRef.current[key] = pagination[key]
 
@@ -91,22 +85,42 @@ export const Sample = memo(() => {
               case !!_customPagesLimit:
                 // @ts-ignore
                 if (_customPagesLimit > paginationRef.current.page) paginationRef.current.page += 1
-                else handleDone()
+                // else setLoading(false)
                 break
               case paginationRef.current.pagesCount > paginationRef.current.page:
                 paginationRef.current.page += 1
                 break
               default:
-                handleDone()
+                setHasNextPage(false)
                 break
             }
           },
         },
-      })
+      }),
+    [records, updateRecords, setLoading, paginationRef, dispatch]
+  )
 
-    const interval = setInterval(getListPack, 1000)
-    return () => clearInterval(interval) // eslint-disable-next-line
-  }, [isDone])
+  const startLoading = useCallback(() => {
+    if (loading) return console.info('Loading: cancel')
+    console.info('Loading: go')
+    setLoading(true)
+    getListPack()
+  }, [setLoading, getListPack])
+
+  const infiniteRef: React.RefObject<HTMLDivElement> = useInfiniteScroll({
+    loading,
+    hasNextPage,
+    onLoadMore: startLoading,
+    scrollContainer: 'window',
+  })
+
+  // useEffect(() => {
+  //   if (loading) return
+
+  //   const interval = setInterval(getListPack, 1000)
+  //   setLoading(true)
+  //   return () => clearInterval(interval)
+  // }, [])
 
   const renderedRecords = useMemo(() => {
     // console.log('- mem')
@@ -114,10 +128,10 @@ export const Sample = memo(() => {
   }, [records])
 
   return (
-    <div className={classes.stackWrapper}>
+    <div className={classes.stackWrapper} ref={infiniteRef}>
       {renderedRecords}
       <div style={{ minHeight: '100px' }}>
-        <Loader text={!isDone ? 'Loading...' : 'Done.'} />
+        <Loader text={loading ? 'Loading...' : 'Done.'} />
       </div>
     </div>
   )

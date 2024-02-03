@@ -14,7 +14,7 @@ export const Reviews: React.FC = () => {
   const pagesCount: number = useSelector((state: RootStateModel) => state.uremont.reviews.pagination.pagesCount)
   const isLoading: boolean = useSelector((state: RootStateModel) => state.uremont.reviews.isLoading)
   const [page, setPage] = useState(1)
-  const handleScrollToContent = useCallback((): void => {
+  const handleScrollToContent = useCallback(() => {
     window?.scrollTo({
       behavior: 'smooth',
       top: window.innerHeight - 100,

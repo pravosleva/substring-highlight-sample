@@ -1,3 +1,13 @@
+# substring-highlight-sample
+
+![Image of Yaktocat](./_screen/2020-05-08-13-12.gif)
+
+## Stack
+
+- React / Redux
+- Redux-saga
+- SCSS
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
