@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, memo, useRef, useMemo } from 'react'
+import React, { useState, useCallback, memo, useRef, useMemo } from 'react'
 import { useWMState } from '@wrap-mutant/react'
 import { UremontReviewModel, showAsyncToast } from 'src/actions'
 import { ReviewsItem } from 'src/components/Uremont/ReviewsItem'
@@ -9,8 +9,12 @@ import classes from './Sample.module.scss'
 import { Loader } from 'src/components/Loader'
 import { groupLog } from 'src/utils/groupLog'
 
+import { sequence } from 'src/utils/sequence'
+
 const _isDebugEnabled = true
 const _customPagesLimit = null as number | null
+
+const reviewID = sequence()
 
 const recordFactory = () => [] as UremontReviewModel[]
 
@@ -68,6 +72,7 @@ export const Sample = memo(() => {
           onSuccess: (res) => {
             setLoading(false)
             const { reviews, pagination } = res
+            for (const review of reviews) review.id = reviewID()
             records.push(...reviews)
             updateRecords()
             // @ts-ignore
@@ -101,8 +106,7 @@ export const Sample = memo(() => {
   )
 
   const startLoading = useCallback(() => {
-    if (loading) return console.info('Loading: cancel')
-    console.info('Loading: go')
+    if (loading) return
     setLoading(true)
     getListPack()
   }, [setLoading, getListPack])
@@ -114,17 +118,16 @@ export const Sample = memo(() => {
     scrollContainer: 'window',
   })
 
-  // useEffect(() => {
-  //   if (loading) return
-
-  //   const interval = setInterval(getListPack, 1000)
-  //   setLoading(true)
-  //   return () => clearInterval(interval)
-  // }, [])
+  const updateItem = useCallback((diff: any) => {
+    const idx = records.findIndex((e) => e.id === diff.id)
+    const item = records[idx]
+    records[idx] = { ...item, ...diff }
+    updateRecords()
+  }, [])
 
   const renderedRecords = useMemo(() => {
     // console.log('- mem')
-    return records.map((item, index) => <ReviewsItem item={item} key={index} updateItem={() => {}} />)
+    return records.map((item, index) => <ReviewsItem item={item} key={index} updateItem={updateItem} />)
   }, [records])
 
   return (
