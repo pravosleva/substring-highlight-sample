@@ -1,4 +1,4 @@
-export const sequence = () => {
-  let val = 0
-  return () => val++
-}
+export const sequence =
+  (val = 0) =>
+  () =>
+    val++

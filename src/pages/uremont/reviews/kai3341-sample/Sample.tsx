@@ -118,17 +118,20 @@ export const Sample = memo(() => {
     scrollContainer: 'window',
   })
 
-  const updateItem = useCallback((diff: any) => {
-    const idx = records.findIndex((e) => e.id === diff.id)
-    const item = records[idx]
-    records[idx] = { ...item, ...diff }
-    updateRecords()
-  }, [])
+  const updateItem = useCallback(
+    (diff: any) => {
+      const idx = records.findIndex((e) => e.id === diff.id)
+      const item = records[idx]
+      records[idx] = { ...item, ...diff }
+      updateRecords()
+    },
+    [records, updateRecords]
+  )
 
   const renderedRecords = useMemo(() => {
     // console.log('- mem')
-    return records.map((item, index) => <ReviewsItem item={item} key={index} updateItem={updateItem} />)
-  }, [records])
+    return records.map((item) => <ReviewsItem item={item} key={item.id} updateItem={updateItem} />)
+  }, [records, updateItem])
 
   return (
     <div className={classes.stackWrapper} ref={infiniteRef}>
