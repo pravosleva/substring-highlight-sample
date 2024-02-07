@@ -1,5 +1,6 @@
-import React, { useState, useCallback, memo, useRef, useMemo } from 'react'
-import { useWMState } from '@wrap-mutant/react'
+import React, { useState, useCallback, memo, useRef, useContext, useMemo } from 'react'
+import { useWMState, createMutableContext } from '@wrap-mutant/react'
+import { RenderedArray } from '@wrap-mutant/react-rendered-array/array'
 import { UremontReviewModel, showAsyncToast } from 'src/actions'
 import { ReviewsItem } from 'src/components/Uremont/ReviewsItem'
 import { uremontHttpClient } from 'src/utils/experimental-http-client/v1'
@@ -14,9 +15,7 @@ import { sequence } from 'src/utils/sequence'
 const _isDebugEnabled = true
 const _customPagesLimit = null as number | null
 
-const reviewID = sequence()
-
-const recordFactory = () => [] as UremontReviewModel[]
+const ReviewsItemCTX = createMutableContext({ updateItem: (diff: any) => {} })
 
 type TUremontPagination = {
   page: number
@@ -25,16 +24,29 @@ type TUremontPagination = {
   totalCount: number
 }
 
+const ItemRender = (props: UremontReviewModel) => {
+  const ctx = useContext(ReviewsItemCTX)
+  return <ReviewsItem item={props} updateItem={(diff) => ctx.updateItem(diff)} />
+}
+
+// const recordFactory = () => [] as UremontReviewModel[]
+const recordFactory = () =>
+  RenderedArray({
+    Component: ItemRender,
+    keyFunction: (item) => item.id,
+  })
+
 export const Sample = memo(() => {
   const dispatch = useDispatch()
-  const [records, updateRecords] = useWMState(recordFactory, { bind: true })
+  const [records, updateRecords] = useWMState(recordFactory, { wrap: false })
+  const reviewID = useMemo(sequence, [])
 
   const paginationRef = useRef<TUremontPagination>({
     page: 0, // NOTE: Will be mutated
 
     // NOTE: Reanonly. Controlled on backend anyway =)
     pageSize: 3,
-    pagesCount: 10,
+    pagesCount: 1,
     totalCount: 1,
   })
 
@@ -51,6 +63,7 @@ export const Sample = memo(() => {
         isDebugEnabled: _isDebugEnabled,
         body: {
           page: paginationRef.current.page,
+          page_size: 10,
           // pageSize: paginationRef.current.pageSize,
         },
         bodyType: 'formdata',
@@ -111,31 +124,32 @@ export const Sample = memo(() => {
     getListPack()
   }, [setLoading, getListPack])
 
+  // useEffect(getListPack, [])
+
   const infiniteRef: React.RefObject<HTMLDivElement> = useInfiniteScroll({
     loading,
     hasNextPage,
     onLoadMore: startLoading,
     scrollContainer: 'window',
   })
+  // const infiniteRef: React.RefObject<HTMLDivElement> = React.createRef()
 
   const updateItem = useCallback(
     (diff: any) => {
-      const idx = records.findIndex((e) => e.id === diff.id)
+      const idx = records.findIndex((e) => e && e.id === diff.id)
       const item = records[idx]
       records[idx] = { ...item, ...diff }
+      // delete records[idx]
       updateRecords()
     },
     [records, updateRecords]
   )
 
-  const renderedRecords = useMemo(() => {
-    // console.log('- mem')
-    return records.map((item) => <ReviewsItem item={item} key={item.id} updateItem={updateItem} />)
-  }, [records, updateItem])
+  // console.log(records)
 
   return (
     <div className={classes.stackWrapper} ref={infiniteRef}>
-      {renderedRecords}
+      <ReviewsItemCTX.Provider value={{ updateItem }}>{records.render()}</ReviewsItemCTX.Provider>
       <div style={{ minHeight: '100px' }}>
         <Loader text={loading ? 'Loading...' : 'Done.'} />
       </div>
