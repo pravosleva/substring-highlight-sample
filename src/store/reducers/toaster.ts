@@ -30,12 +30,14 @@ export const toaster = (state = initialState, action: any) => {
         ],
       }
     case SHOW_TOAST_FINISH:
+      // @ts-ignore
       targetItemIndex = state.items.findIndex((e) => e.id === action.payload)
       newItems = [...state.items]
       newItems[targetItemIndex].status = 'show-finished'
 
       return { ...state, items: newItems }
     case HIDE_TOAST_START:
+      // @ts-ignore
       targetItemIndex = state.items.findIndex((e) => e.id === action.payload)
 
       if (targetItemIndex === -1) return state
@@ -45,6 +47,7 @@ export const toaster = (state = initialState, action: any) => {
 
       return { ...state, items: newItems }
     case HIDE_TOAST_FINISH:
+      // @ts-ignore
       targetItemIndex = state.items.findIndex((e) => e.id === action.payload)
 
       if (targetItemIndex === -1) return state
@@ -54,10 +57,12 @@ export const toaster = (state = initialState, action: any) => {
 
       return { ...state, items: newItems }
     case REMOVE_TOAST:
+      // @ts-ignore
       targetItemIndex = state.items.findIndex((e) => e.id === action.payload)
 
       if (targetItemIndex === -1) return state
 
+      // @ts-ignore
       return { ...state, items: [...state.items].filter((e) => e.id !== action.payload) }
     default:
       return state

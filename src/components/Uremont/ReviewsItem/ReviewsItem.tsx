@@ -2,10 +2,14 @@ import React, { memo } from 'react'
 import { UremontReviewModel } from '../../../actions'
 import styles from './ReviewsItem.module.scss'
 
+import { CheckBox } from 'src/components/CheckBox'
+
 export const ReviewsItem: React.FC<{
   item: UremontReviewModel
-}> = memo(({ item }) => {
+  updateItem: (diff: any) => void
+}> = memo(({ item, updateItem }) => {
   const {
+    id,
     customer_image,
     customer_name,
     customer_auto,
@@ -19,6 +23,7 @@ export const ReviewsItem: React.FC<{
     cost,
     text,
     // create_time,
+    useful = false,
   } = item
 
   return (
@@ -45,7 +50,12 @@ export const ReviewsItem: React.FC<{
         </div>
         <div className={styles['item-wrapper__body__rating']}>{rating}</div>
       </div>
-      <div className={styles['item-wrapper__footer']}>{text}</div>
+      <div className={styles['item-wrapper__footer']}>
+        {text}
+        <div className={styles['item-wrapper__footer__useful']}>
+          <CheckBox checked={useful} onChange={(event) => updateItem({ id, useful: event.target.checked })} />
+        </div>
+      </div>
     </div>
   )
 })
