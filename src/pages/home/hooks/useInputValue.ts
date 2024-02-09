@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { getEscapedRegExpChars } from '../../../utils/getEscapedRegExpChars'
 
 const upperCaseFirstChar = (str: string): string => {
   if (!str) return str
@@ -8,20 +7,16 @@ const upperCaseFirstChar = (str: string): string => {
 }
 export const useInputValue = (defaultValue = '') => {
   const [value, setValue] = useState(defaultValue)
-  const [valueRegExp, setValueRegExp] = useState(new RegExp('', 'g'))
 
   return {
     bind: {
       value,
       onChange: (e: any): void => {
         setValue(e.target.value)
-        setValueRegExp(new RegExp(getEscapedRegExpChars(e.target.value), 'gi'))
       },
     },
-    valueRegExp,
     clear: () => {
       setValue('')
-      setValueRegExp(new RegExp('', 'g'))
     },
     getNormalizedValue: () => {
       return upperCaseFirstChar(value.trim())

@@ -1,7 +1,7 @@
 import React from 'react'
-import { HighlightedTextV1 } from './components/HighlightedTextV1/index'
-import { HighlightedTextV2 } from './components/HighlightedTextV2/index'
-import { ItemWrapper } from './components/ItemWrapper/index'
+import { HighlightedTextV1 } from './components/HighlightedTextV1'
+import { HighlightedTextV2, HighlightedTextV2Provider } from './components/HighlightedTextV2'
+import { ItemWrapper } from './components/ItemWrapper'
 import { useInputValue } from './hooks/useInputValue'
 import { useSelector, useDispatch } from 'react-redux'
 import { addCity, removeCity, showAsyncToast } from '../../actions'
@@ -68,13 +68,17 @@ export function Home() {
           </div>
           <div className={homeStyles['samples-container__sample-list']}>
             <em className={cn(homeStyles.likeTitle, homeStyles.muted)}>Good sample</em>
-            {list.map((name) => (
-              <div key={name} className={homeStyles['samples-container__sample-list__item-wrapper']}>
-                <ItemWrapper onRemove={handleRemove} cityName={name}>
-                  <HighlightedTextV2 inputValueRegExp={input.valueRegExp} comparedValue={name} />
-                </ItemWrapper>
-              </div>
-            ))}
+            <HighlightedTextV2Provider value={input.bind.value}>
+              {list.map((name) => (
+                <div key={name} className={homeStyles['samples-container__sample-list__item-wrapper']}>
+                  <ItemWrapper onRemove={handleRemove} cityName={name}>
+                    <div>
+                      <HighlightedTextV2>{name}</HighlightedTextV2>
+                    </div>
+                  </ItemWrapper>
+                </div>
+              ))}
+            </HighlightedTextV2Provider>
           </div>
         </div>
       </header>
