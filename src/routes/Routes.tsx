@@ -58,7 +58,7 @@ export const Routes = () => {
     .filter((route) => (route.options.access.includes('authenticated') ? isAuthenticated : true))
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <div className={mainStyles['fixed-top-nav-menu']}>
         {routesLinksForCurrentUser.map((route) => (
           <StyledLinkItem key={route.path} path={route.path} text={route.options.text} />
