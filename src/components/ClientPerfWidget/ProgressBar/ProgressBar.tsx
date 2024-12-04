@@ -29,10 +29,10 @@ export const ProgressBar = ({ value, label }: TProps) => {
             value < 0
               ? colorSubZero
               : value >= 0 && value < progressBarCfg.first.limits.warning
-              ? colorNormal
-              : value >= progressBarCfg.first.limits.warning && value < progressBarCfg.first.limits.danger
-              ? colorWarning
-              : colorDanger,
+                ? colorNormal
+                : value >= progressBarCfg.first.limits.warning && value < progressBarCfg.first.limits.danger
+                  ? colorWarning
+                  : colorDanger,
         }}
       >
         <span>{value.toFixed(0)}%</span>

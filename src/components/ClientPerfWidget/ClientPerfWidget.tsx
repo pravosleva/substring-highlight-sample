@@ -6,8 +6,8 @@ import { ProgressBar } from './ProgressBar'
 // import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 // import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 // import { useSelector, useDispatch } from 'react-redux'
-// import { IRootState } from '~/store/IRootState'
-// import { toggleBrowserMemoryMonitor } from '~/store/reducers/customDevTools'
+// import { IRootState } from 'src/store/IRootState'
+// import { toggleBrowserMemoryMonitor } from 'src/store/reducers/customDevTools'
 
 const isBrowserMemoryMonitorEnabled = true
 

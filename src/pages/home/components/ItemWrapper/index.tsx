@@ -4,6 +4,7 @@ import styles from './ItemWrapper.module.scss'
 interface Props {
   cityName: string
   onRemove: any
+  children: JSX.Element | JSX.Element[]
 }
 
 export const ItemWrapper: React.FC<Props> = ({ onRemove, children, cityName }) => (

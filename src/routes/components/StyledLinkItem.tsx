@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLocation, Link } from 'react-router-dom'
 
-export const StyledLinkItem = ({ path, text }) => {
+export const StyledLinkItem = ({ path, text }: { path: string; text: string }) => {
   const location = useLocation()
 
   return (

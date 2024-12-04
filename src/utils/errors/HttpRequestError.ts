@@ -1,5 +1,8 @@
 export class HttpRequestError extends Error {
-  constructor(public status: number, public message: string) {
+  constructor(
+    public status: number,
+    public message: string
+  ) {
     super()
 
     // Set the prototype explicitly.

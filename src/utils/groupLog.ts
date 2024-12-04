@@ -7,10 +7,10 @@ const getHoursMinutesSecondsByMS = (ms: number) => {
     dt.getMilliseconds() < 10
       ? `00${dt.getMilliseconds()}`
       : dt.getMilliseconds() >= 10 && dt.getMilliseconds() < 100
-      ? `0${dt.getMilliseconds()}`
-      : dt.getMilliseconds() >= 100 && dt.getMilliseconds() < 1000
-      ? `${dt.getMilliseconds()}`
-      : dt.getMilliseconds()
+        ? `0${dt.getMilliseconds()}`
+        : dt.getMilliseconds() >= 100 && dt.getMilliseconds() < 1000
+          ? `${dt.getMilliseconds()}`
+          : dt.getMilliseconds()
 
   return `${hrs}:${mins}:${secds}.${msds}`
 }

@@ -6,16 +6,22 @@ import {
   addReviewsItems,
   // LoadReviewItemsResponseModel,
   showAsyncToast,
-} from '../../actions'
+} from 'src/actions'
 import { RootStateModel } from '../RootStateModel'
-import { HttpRequestError } from '../../utils/errors/HttpRequestError'
+import { HttpRequestError } from 'src/utils/errors/HttpRequestError'
+import { sequence } from 'src/utils/sequence'
+
+const reviewID = sequence()
 
 export function fetchReviewsData(params: LoadReviewItemsParamsModel) {
   const body = new FormData()
-  const expectedFields = ['page', 'review_rating_from', 'review_rating_to']
+  const expectedFields = ['page', 'page_size', 'review_rating_from', 'review_rating_to'] as Array<
+    keyof LoadReviewItemsParamsModel
+  >
 
   expectedFields.forEach((e) => {
-    if (params[e]) {
+    const value = params[e]
+    if (value) {
       switch (e) {
         // arrays
         // case 'as-array':
@@ -23,7 +29,7 @@ export function fetchReviewsData(params: LoadReviewItemsParamsModel) {
         // break
         // strings & others
         default:
-          body.append(e, params[e])
+          body.append(e, value.toString())
           break
       }
     }
@@ -42,6 +48,7 @@ export function fetchReviewsData(params: LoadReviewItemsParamsModel) {
     })
     .then((json) => {
       if (json.success === 1) {
+        for (const review of json.reviews) review.id = reviewID()
         return json
       } else {
         throw new Error(json)
@@ -80,6 +87,7 @@ export function* asyncLoadReviewItemsWorker(action: any) {
 
   yield put(setIsLoadingReviewItems(true))
 
+  // @ts-ignore
   const data = yield call(fetchReviewsData, payload)
 
   if (data.success === 1 && data.reviews && Array.isArray(data.reviews)) {
@@ -89,6 +97,7 @@ export function* asyncLoadReviewItemsWorker(action: any) {
         pagination: data.pagination,
       })
     )
+    // @ts-ignore
     const reviewsLength = yield select(getReviewsLength)
     yield put(
       showAsyncToast({
